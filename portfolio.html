@@ -11,6 +11,7 @@
         rel="stylesheet">
     <style>
         :root {
+            
             --primary: #2da14a;
             --secondary: #10795d;
             --dark: #1a1a2e;
@@ -1630,9 +1631,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.querySelector('.menu-toggle');
     const navList = document.querySelector('.nav-links');
 
-    // Show only home page by default
-    pages.forEach(page => page.style.display = 'block');
-    document.getElementById('home').style.display = 'none';
+    // Show only portfolio page by default
+    pages.forEach(page => page.style.display = 'none');
+    document.getElementById('portfolio-page').style.display = 'block';
 
     // Navbar scroll effect
     window.addEventListener('scroll', function () {
@@ -1651,53 +1652,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Navigation click handler
-    navLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1); // remove #
-
-            // Hide all pages
-            pages.forEach(page => page.style.display = 'none');
-
-            // Show the target page
-            const targetPage = document.getElementById(
-                targetId === 'about' ? 'about-page' :
-                targetId === 'services' ? 'services-page' :
-                targetId === 'portfolio' ? 'portfolio-page' :
-                targetId === 'contact' ? 'contact-page' : 'home'
-            );
-            if (targetPage) targetPage.style.display = 'block';
-
-            // Update active link
-            navLinks.forEach(navLink => navLink.classList.remove('active'));
-            this.classList.add('active');
-
-            // Close mobile menu
-            navList.classList.remove('active');
-
-            // Scroll to top
-            window.scrollTo(0, 0);
-        });
-    });
-
-    // Portfolio filtering
+    // Remove SPA navigation code
+    // Only show portfolio page and enable filtering
     const categoryBtns = document.querySelectorAll('.category-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
     categoryBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             const category = this.getAttribute('data-category');
-
-            // Make sure portfolio page is visible
-            pages.forEach(page => page.style.display = 'none');
-            document.getElementById('portfolio-page').style.display = 'block';
-
-            // Update active button
             categoryBtns.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-
-            // Filter portfolio items
             portfolioItems.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
                     item.style.display = 'block';
